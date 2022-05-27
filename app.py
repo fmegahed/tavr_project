@@ -37,6 +37,7 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
   url = 'https://github.com/fmegahed/tavr_paper/blob/main/data/final_model.pkl?raw=true'
   raw = urlopen(url)
   model = pickle.load(raw)
+  model = load_model(model)
 
   df = pd.DataFrame.from_dict({
       'age': [age], 'female': [female], 'race': [race], 'elective': elective,
