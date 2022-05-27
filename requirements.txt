@@ -1,0 +1,18 @@
+# Library dependencies for the python code.  You need to install these with
+# `pip install -r requirements.txt` before you can run this.
+# NOTE: all essential packages must be placed under a section named 'ESSENTIAL ...'
+# so that the script `./scripts/check_requirements_and_setup.py` can find them.
+
+#### ESSENTIAL LIBRARIES FOR MAIN FUNCTIONALITY ####
+pycaret
+scipy
+scikit-learn
+
+
+
+#### ESSENTIAL LIBRARIES USED IN SCRIPTS ####
+pycaret
+scipy
+scikit-learn
+
+
