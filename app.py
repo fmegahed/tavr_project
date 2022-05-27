@@ -8,6 +8,11 @@ import sklearn
 import gradio as gr
 import numpy as np
 
+ex_data = pd.read_csv('example_data.csv')
+ex_data = ex_data.to_numpy()
+ex_data = ex_data.tolist()
+
+
 def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hosp_division, hosp_locteach,
             hosp_bedsize, h_contrl, pay, anemia, atrial_fibrillation, 
             cancer, cardiac_arrhythmias, carotid_artery_disease, 
