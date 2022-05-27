@@ -13,7 +13,8 @@ import numpy as np
 import io
 import pickle
 import requests
-from urllib.request import urlopen
+import urllib.request
+import shutil
 
 url = 'https://raw.githubusercontent.com/fmegahed/tavr_paper/main/data/example_data2.csv'
 download = requests.get(url).content
@@ -34,10 +35,11 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
             pulmonary_circulation_disorder, smoker, valvular_disease, weight_loss,
             endovascular_tavr, transapical_tavr):
   
-  url = 'https://github.com/fmegahed/tavr_paper/blob/main/data/final_model.pkl?raw=true'
-  raw = urlopen(url)
-  model = pickle.load(raw)
-  model = load_model(model)
+  with urllib.request.urlopen('https://github.com/fmegahed/tavr_paper/blob/main/data/final_model.pkl?raw=true') as response,
+  open('final_model.pkl', 'wb') as out_file: 
+    shutil.copyfileobj(response, out_file)
+
+  model = load_model('final_model')
 
   df = pd.DataFrame.from_dict({
       'age': [age], 'female': [female], 'race': [race], 'elective': elective,
