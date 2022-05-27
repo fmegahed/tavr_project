@@ -16,6 +16,8 @@ import requests
 import urllib.request
 import shutil
 
+from pandas.api.types import CategoricalDtype
+
 url = 'https://raw.githubusercontent.com/fmegahed/tavr_paper/main/data/example_data2.csv'
 download = requests.get(url).content
 
