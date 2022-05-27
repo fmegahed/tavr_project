@@ -70,11 +70,9 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
 
   pred = predict_model(model, df, raw_score=True)
   
-  pred_dict = {'Death %': round(100*pred['Score_Yes'][0], 2),
+  return {'Death %': round(100*pred['Score_Yes'][0], 2),
        'Survival %': round(100*pred['Score_No'][0], 2),
        'Predicting Death Outcome:': pred['Label'][0]}
-       
-  return str(pred_dict)
 
 # Defining the containers for each input
 age = gr.inputs.Slider(minimum=0, maximum=100, default=60, label="Age")
@@ -139,4 +137,4 @@ gr.Interface(predict, [age, female, race, elective, aweekend, zipinc_qrtl, hosp_
             live=True,
             title = "Predicting In-Hospital Mortality After TAVR Using Preoperative Variables and Penalized Logistic Regression",
             description = "The app below utilizes the finalized logistic regression model with an l2 penalty based on the manuscript by Alhwiti et al. The manuscript will be submitted to JACC: Cardiovascular Interventions. The data used for model building is all TAVR procedures between 2012 and 2019 as reported in the HCUP NIS database. <br><br> The purpose of the app is to provide evidence-based clinical support for interventional cardiology. <br> <br> For instruction on how to use the app and the encoding required for the variables,  please see <b>XYZ: insert website link here</b>.",
-            css = 'https://bootswatch.com/5/journal/bootstrap.css').launch(debug = True);
+            css = 'https://bootswatch.com/5/journal/bootstrap.css').launch(share = True);
