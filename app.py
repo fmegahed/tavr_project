@@ -16,8 +16,6 @@ import requests
 import urllib.request
 import shutil
 
-from pandas.api.types import CategoricalDtype
-
 url = 'https://raw.githubusercontent.com/fmegahed/tavr_paper/main/data/example_data2.csv'
 download = requests.get(url).content
 
@@ -36,6 +34,8 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
             prior_cabg, prior_icd, prior_mi, prior_pci, prior_ppm, prior_tia_stroke,
             pulmonary_circulation_disorder, smoker, valvular_disease, weight_loss,
             endovascular_tavr, transapical_tavr):
+  
+ 
 
   df = pd.DataFrame.from_dict({
       'age': [age], 'female': [female], 'race': [race], 'elective': elective,
@@ -68,16 +68,14 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
     .apply(lambda x: x.astype('category'))
 
   # converting ordinal column to ordinal
-  #ordinal_cat = CategoricalDtype(categories = ['FirstQ', 'SecondQ', 'ThirdQ', 'FourthQ'], ordered = True)
-  #df.zipinc_qrtl = df.zipinc_qrtl.astype(ordinal_cat)
-  
-  # reading the model from GitHub
+  ordinal_cat = CategoricalDtype(categories = ['FirstQ', 'SecondQ', 'ThirdQ', 'FourthQ'], ordered = True)
+  df.zipinc_qrtl = df.zipinc_qrtl.astype(ordinal_cat)
+
   with urllib.request.urlopen('https://github.com/fmegahed/tavr_paper/blob/main/data/final_model.pkl?raw=true') as response, open('final_model.pkl', 'wb') as out_file:
     shutil.copyfileobj(response, out_file)
 
   model = load_model('final_model')
-  
-  
+
   pred = predict_model(model, df, raw_score=True)
   
   return {'Death %': round(100*pred['Score_Yes'][0], 2),
@@ -143,8 +141,8 @@ gr.Interface(predict, [age, female, race, elective, aweekend, zipinc_qrtl, hosp_
             prior_cabg, prior_icd, prior_mi, prior_pci, prior_ppm, prior_tia_stroke,
             pulmonary_circulation_disorder, smoker, valvular_disease, weight_loss,
             endovascular_tavr, transapical_tavr], 
-            'label',
+            'text',
             live=True,
             title = "Predicting In-Hospital Mortality After TAVR Using Preoperative Variables and Penalized Logistic Regression",
             description = "The app below utilizes the finalized logistic regression model with an l2 penalty based on the manuscript by Alhwiti et al. The manuscript will be submitted to JACC: Cardiovascular Interventions. The data used for model building is all TAVR procedures between 2012 and 2019 as reported in the HCUP NIS database. <br><br> The purpose of the app is to provide evidence-based clinical support for interventional cardiology. <br> <br> For instruction on how to use the app and the encoding required for the variables,  please see <b>XYZ: insert website link here</b>.",
-            css = 'https://bootswatch.com/5/journal/bootstrap.css').launch(share = True);
+            css = 'https://bootswatch.com/5/journal/bootstrap.css').launch(debug = True);
