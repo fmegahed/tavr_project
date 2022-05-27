@@ -13,8 +13,12 @@ import numpy as np
 from io import BytesIO
 import pickle
 import requests
+from urllib.request import urlopen
 
-ex_data = pd.read_csv('https://raw.githubusercontent.com/fmegahed/tavr_paper/main/data/example_data2.csv')
+url = 'https://raw.githubusercontent.com/fmegahed/tavr_paper/main/data/example_data2.csv'
+download = requests.get(url).content
+
+ex_data =pd.read_csv(io.StringIO(download.decode('utf-8')))
 ex_data = ex_data.to_numpy()
 ex_data = ex_data.tolist()
 
@@ -30,10 +34,9 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
             pulmonary_circulation_disorder, smoker, valvular_disease, weight_loss,
             endovascular_tavr, transapical_tavr):
   
-  mLink = 'https://github.com/fmegahed/tavr_paper/blob/main/data/final_model.pkl?raw=true'
-  mfile = BytesIO(requests.get(mLink).content)
-  model = pickle.load(mfile)
-  model = load_model(model)
+  url = 'https://github.com/fmegahed/tavr_paper/blob/main/data/final_model.pkl?raw=true'
+  raw = urlopen(url)
+  model = pickle.load(raw)
 
   df = pd.DataFrame.from_dict({
       'age': [age], 'female': [female], 'race': [race], 'elective': elective,
