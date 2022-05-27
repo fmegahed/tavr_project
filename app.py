@@ -1,4 +1,4 @@
-!pip install pycaret
+# pip install pycaret
 import pandas as pd
 import jinja2
 
