@@ -17,7 +17,6 @@ import requests
 ex_data = pd.read_csv('https://raw.githubusercontent.com/fmegahed/tavr_paper/main/data/example_data2.csv')
 ex_data = ex_data.to_numpy()
 ex_data = ex_data.tolist()
-print(ex_data)
 
 
 def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hosp_division, hosp_locteach,
@@ -71,11 +70,11 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
 
   pred = predict_model(model, df, raw_score=True)
   
-  print(pred)
-
-  return {'Death %': round(100*pred['Score_Yes'][0], 2),
+  pred_dict = {'Death %': round(100*pred['Score_Yes'][0], 2),
        'Survival %': round(100*pred['Score_No'][0], 2),
        'Predicting Death Outcome:': pred['Label'][0]}
+       
+  return str(pred_dict)
 
 # Defining the containers for each input
 age = gr.inputs.Slider(minimum=0, maximum=100, default=60, label="Age")
