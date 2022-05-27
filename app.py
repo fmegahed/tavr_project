@@ -84,7 +84,7 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
        'Predicting Death Outcome:': pred['Label'][0]}
 
 # Defining the containers for each input
-age = gr.inputs.Slider(minimum=0, maximum=100, default=60, label="Age")
+age = gr.inputs.Slider(minimum=18, maximum=100, default=60, label="Age")
 female = gr.inputs.Dropdown(choices=["Female", "Male"],label = 'Sex')
 race = gr.inputs.Dropdown(choices=['Asian or Pacific Islander', 'Black', 'Hispanic', 'Native American', 'White',  'Other'], label = 'Race')
 elective = gr.inputs.Radio(choices=['Elective', 'NonElective'], label = 'Elective')
