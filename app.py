@@ -70,6 +70,8 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
   df.zipinc_qrtl = df.zipinc_qrtl.astype(ordinal_cat)
 
   pred = predict_model(model, df, raw_score=True)
+  
+  print(pred)
 
   return {'Death %': round(100*pred['Score_Yes'][0], 2),
        'Survival %': round(100*pred['Score_No'][0], 2),
