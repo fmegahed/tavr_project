@@ -32,7 +32,8 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
   
   mLink = 'https://github.com/fmegahed/tavr_paper/blob/main/data/final_model.pkl?raw=true'
   mfile = BytesIO(requests.get(mLink).content)
-  model = load_model(mfile)
+  model = pickle.load(mfile)
+  model = load_model(model)
 
   df = pd.DataFrame.from_dict({
       'age': [age], 'female': [female], 'race': [race], 'elective': elective,
