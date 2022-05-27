@@ -1,6 +1,7 @@
 # pip install pycaret
 import pandas as pd
 import jinja2
+from datasets import load_dataset
 
 from pycaret.classification import *
 import imblearn as im
@@ -9,7 +10,7 @@ import sklearn
 import gradio as gr
 import numpy as np
 
-ex_data = pd.read_csv('example_data.csv')
+ex_data = pd.read_csv('https://raw.githubusercontent.com/fmegahed/tavr_paper/main/data/example_data2.csv')
 ex_data = ex_data.to_numpy()
 ex_data = ex_data.tolist()
 
@@ -25,7 +26,7 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
             pulmonary_circulation_disorder, smoker, valvular_disease, weight_loss,
             endovascular_tavr, transapical_tavr):
   
-  model = load_model('final_model')
+  model = load_model('https://github.com/fmegahed/tavr_paper/blob/main/data/final_model.pkl?raw=true')
 
   df = pd.DataFrame.from_dict({
       'age': [age], 'female': [female], 'race': [race], 'elective': elective,
