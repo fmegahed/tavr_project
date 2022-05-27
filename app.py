@@ -10,7 +10,7 @@ import sklearn
 import gradio as gr
 import numpy as np
 
-from io import BytesIO
+import io
 import pickle
 import requests
 from urllib.request import urlopen
