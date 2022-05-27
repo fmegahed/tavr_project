@@ -66,6 +66,7 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
     .apply(lambda x: x.astype('category'))
 
   # converting ordinal column to ordinal
+  ordinal_cat = CategoricalDtype(categories = ['FirstQ', 'SecondQ', 'ThirdQ', 'FourthQ'], ordered = True)
   df.zipinc_qrtl = df.zipinc_qrtl.astype(ordinal_cat)
   
   # reading the model from GitHub
