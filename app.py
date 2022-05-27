@@ -34,12 +34,6 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
             prior_cabg, prior_icd, prior_mi, prior_pci, prior_ppm, prior_tia_stroke,
             pulmonary_circulation_disorder, smoker, valvular_disease, weight_loss,
             endovascular_tavr, transapical_tavr):
-  
-  with urllib.request.urlopen('https://github.com/fmegahed/tavr_paper/blob/main/data/final_model.pkl?raw=true') as response,
-  open('final_model.pkl', 'wb') as out_file: 
-    shutil.copyfileobj(response, out_file)
-
-  model = load_model('final_model')
 
   df = pd.DataFrame.from_dict({
       'age': [age], 'female': [female], 'race': [race], 'elective': elective,
@@ -73,7 +67,14 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
 
   # converting ordinal column to ordinal
   df.zipinc_qrtl = df.zipinc_qrtl.astype(ordinal_cat)
+  
+  # reading the model from GitHub
+  with urllib.request.urlopen('https://github.com/fmegahed/tavr_paper/blob/main/data/final_model.pkl?raw=true') as response, open('final_model.pkl', 'wb') as out_file:
+    shutil.copyfileobj(response, out_file)
 
+  model = load_model('final_model')
+  
+  
   pred = predict_model(model, df, raw_score=True)
   
   return {'Death %': round(100*pred['Score_Yes'][0], 2),
