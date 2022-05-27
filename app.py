@@ -1,4 +1,5 @@
 # pip install pycaret
+from pandas.api.types import CategoricalDtype
 import pandas as pd
 import jinja2
 from datasets import load_dataset
