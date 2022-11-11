@@ -4,15 +4,19 @@
 # so that the script `./scripts/check_requirements_and_setup.py` can find them.
 
 #### ESSENTIAL LIBRARIES FOR MAIN FUNCTIONALITY ####
-pycaret
-scipy
-scikit-learn
+pycaret==2.3.6
+scipy==1.5.4
+scikit-learn==0.23.2
+scikit-optimize==0.9.0
+scikit-plot==0.3.7
 
 
 
 #### ESSENTIAL LIBRARIES USED IN SCRIPTS ####
-pycaret
-scipy
-scikit-learn
+pycaret==2.3.6
+scipy==1.5.4
+scikit-learn==0.23.2
+scikit-optimize==0.9.0
+scikit-plot==0.3.7
 
 
