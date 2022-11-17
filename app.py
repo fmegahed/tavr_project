@@ -2,7 +2,6 @@
 from pandas.api.types import CategoricalDtype
 import pandas as pd
 import jinja2
-from datasets import load_dataset
 
 from pycaret.classification import *
 import imblearn as im
