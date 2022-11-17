@@ -4,7 +4,6 @@
 # so that the script `./scripts/check_requirements_and_setup.py` can find them.
 
 #### ESSENTIAL LIBRARIES FOR MAIN FUNCTIONALITY ####
-python==3.8.9
 pycaret==2.3.6
 scipy==1.5.4
 scikit-learn==0.23.2
