@@ -16,10 +16,10 @@ import requests
 import urllib.request
 import shutil
 
-url = 'https://raw.githubusercontent.com/fmegahed/tavr_paper/main/data/example_data2.csv'
-download = requests.get(url).content
+# url = 'https://raw.githubusercontent.com/fmegahed/tavr_paper/main/data/example_data2.csv'
+# download = requests.get(url).content
 
-ex_data =pd.read_csv(io.StringIO(download.decode('utf-8')))
+ex_data =pd.read_csv('example_data2.csv')
 ex_data = ex_data.to_numpy()
 ex_data = ex_data.tolist()
 
