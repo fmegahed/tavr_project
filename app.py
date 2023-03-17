@@ -143,7 +143,7 @@ iface = gr.Interface(
             prior_cabg, prior_icd, prior_mi, prior_pci, prior_ppm, prior_tia_stroke,
             pulmonary_circulation_disorder, smoker, valvular_disease, weight_loss,
             endovascular_tavr, transapical_tavr], 
-    output = 'text',
+    outputs = 'text',
     live=True,
     title = "Predicting In-Hospital Mortality After TAVR Using Preoperative Variables and Penalized Logistic Regression",
     description = "The app below utilizes the finalized logistic regression model with an l2 penalty based on the manuscript by Alhwiti et al. The manuscript will be submitted to JACC: Cardiovascular Interventions. The data used for model building is all TAVR procedures between 2012 and 2019 as reported in the HCUP NIS database. <br><br> The purpose of the app is to provide evidence-based clinical support for interventional cardiology. </b>.",
