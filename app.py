@@ -83,79 +83,76 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
        'Predicting Death Outcome:': pred['Label'][0]}
 
 # Defining the containers for each input
-age = gr.Slider(minimum=18, maximum=100, value=60, label="Age")
-female = gr.Dropdown(choices=["Female", "Male"],label = 'Sex')
-race = gr.Dropdown(choices=['Asian or Pacific Islander', 'Black', 'Hispanic', 'Native American', 'White',  'Other'], label = 'Race')
-elective = gr.Radio(choices=['Elective', 'NonElective'], label = 'Elective')
-aweekend = gr.Radio(choices=["No", "Yes"], label = 'Weekend')
-zipinc_qrtl = gr.Radio(choices=['FirstQ', 'SecondQ', 'ThirdQ', 'FourthQ'], label = 'Zip Income Quartile')
-hosp_region = gr.Radio(choices=['Midwest', 'Northeast', 'South', 'West'], label = 'Hospital Region')
-hosp_division = gr.Radio(choices=['New England', 'Middle Atlantic', 'East North Central', 'West North Central', 'South Atlantic', 'East South Central', 'West South Central', 'Mountain', 'Pacific'], label = 'Hospital Division')
-hosp_locteach = gr.Radio(choices=['Urban teaching', 'Urban nonteaching', 'Rural'], label= 'Hospital Location/Teaching')
-hosp_bedsize = gr.Radio(choices=['Small', 'Medium', 'Large'], label= 'Hospital Bedsize')
-h_contrl = gr.Radio(choices= ['Government_nonfederal', 'Private_invest_own', 'Private_not_profit'], label = 'Hospital Control')
-pay = gr.Dropdown(choices= ['Private insurance', 'Medicare', 'Medicaid',  'Self-pay', 'No charge', 'Other'], label = 'Payee')
-anemia = gr.Radio(choices=["No", "Yes"], label = 'Anemia')
-atrial_fibrillation = gr.Radio(choices=["No", "Yes"], label = 'Atrial Fibrillation')
-cancer = gr.Radio(choices=["No", "Yes"], label = 'Cancer')
-cardiac_arrhythmias = gr.Radio(choices=["No", "Yes"], label = 'Cardiac Arrhythmias')
-carotid_artery_disease = gr.Radio(choices=["No", "Yes"], label = 'Carotid Artery Disease') 
-chronic_kidney_disease = gr.Radio(choices=["No", "Yes"], label = 'Chronic Kidney Disease')
-chronic_pulmonary_disease = gr.Radio(choices=["No", "Yes"], label = 'Chronic Pulmonary Disease') 
-coagulopathy =  gr.Radio(choices=["No", "Yes"], label = 'Coagulopathy')
-depression = gr.Radio(choices=["No", "Yes"], label = 'Depression')
-diabetes_mellitus = gr.Radio(choices=["No", "Yes"], label = 'Diabetes Mellitus')
-drug_abuse = gr.Radio(choices=["No", "Yes"], label = 'Drug Abuse')
-dyslipidemia = gr.Radio(choices=["No", "Yes"], label = 'Dyslipidemia')
-endocarditis = gr.Radio(choices=["No", "Yes"], label = 'Endocarditis')
-family_history = gr.Radio(choices=["No", "Yes"], label = 'Family History')
-fluid_and_electrolyte_disorder = gr.Radio(choices=["No", "Yes"], label = 'Fluid and Electrolyte Disorder')
-heart_failure = gr.Radio(choices=["No", "Yes"], label = 'Heart Failure')
-hypertension = gr.Radio(choices=["No", "Yes"], label = 'Hypertension')
-known_cad = gr.Radio(choices=["No", "Yes"], label = 'Known CAD')
-liver_disease = gr.Radio(choices=["No", "Yes"], label = 'Liver Disease')
-obesity = gr.Radio(choices=["No", "Yes"], label = 'Obesity')
-peripheral_vascular_disease = gr.Radio(choices=["No", "Yes"], label = 'Peripheral Vascular Disease')
-prior_cabg = gr.Radio(choices=["No", "Yes"], label = 'Prior CABG')
-prior_icd = gr.Radio(choices=["No", "Yes"], label = 'Prior ICD')
-prior_mi = gr.Radio(choices=["No", "Yes"], label = 'Prior MI')
-prior_pci = gr.Radio(choices=["No", "Yes"], label = 'Prior PCI') 
-prior_ppm = gr.Radio(choices=["No", "Yes"], label = 'Prior PPM')
-prior_tia_stroke = gr.Radio(choices=["No", "Yes"], label = 'Prior TIA Stroke')
-pulmonary_circulation_disorder = gr.Radio(choices=["No", "Yes"], label = 'Pulmonary Circulation Disorder') 
-smoker = gr.Radio(choices=["No", "Yes"], label = 'Smoker')
-valvular_disease = gr.Radio(choices=["No", "Yes"], label = 'Valvular Disease') 
-weight_loss = gr.Radio(choices=["No", "Yes"], label = 'Weight Loss')
-endovascular_tavr = gr.Radio(choices=["No", "Yes"], label = 'Endovascular TAVR')
-transapical_tavr = gr.Radio(choices=["No", "Yes"], label = 'Transapical TAVR', value= 'Yes')
+inputs = [
+    gr.Slider(minimum=18, maximum=100, value=80, label="Age"),
+    gr.Dropdown(choices=["Female", "Male"], value="Female", label="Sex"),
+    gr.Dropdown(choices=['Asian or Pacific Islander', 'Black', 'Hispanic', 'Native American', 'White', 'Other'], value='White', label='Race'),
+    gr.Radio(choices=['Elective', 'NonElective'], value='Elective', label='Elective'),
+    gr.Radio(choices=["No", "Yes"], value="No", label='Weekend'),
+    gr.Radio(choices=['FirstQ', 'SecondQ', 'ThirdQ', 'FourthQ'], value='SecondQ', label='Zip Income Quartile'),
+    gr.Radio(choices=['Midwest', 'Northeast', 'South', 'West'], value='South', label='Hospital Region'),
+    gr.Radio(choices=['New England', 'Middle Atlantic', 'East North Central', 'West North Central', 'South Atlantic', 'East South Central', 'West South Central', 'Mountain', 'Pacific'], value='South Atlantic', label='Hospital Division'),
+    gr.Radio(choices=['Urban teaching', 'Urban nonteaching', 'Rural'], value='Urban teaching', label='Hospital Location/Teaching'),
+    gr.Radio(choices=['Small', 'Medium', 'Large'], value='Large', label='Hospital Bedsize'),
+    gr.Radio(choices=['Government_nonfederal', 'Private_invest_own', 'Private_not_profit'], value='Private_not_profit', label='Hospital Control'),
+    gr.Dropdown(choices=['Private insurance', 'Medicare', 'Medicaid', 'Self-pay', 'No charge', 'Other'], value='Medicare', label='Payee'),
 
+    # Comorbidities — default to "No" with some "Yes" for making the default selection more aesthetically pleasing
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Anemia'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Atrial Fibrillation'),
+    gr.Radio(choices=["No", "Yes"], value="No", label='Cancer'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Cardiac Arrhythmias'),
+    gr.Radio(choices=["No", "Yes"], value="No", label='Carotid Artery Disease'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Chronic Kidney Disease'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Chronic Pulmonary Disease'),
+    gr.Radio(choices=["No", "Yes"], value="No", label='Coagulopathy'),
+    gr.Radio(choices=["No", "Yes"], value="No", label='Depression'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Diabetes Mellitus'),
+    gr.Radio(choices=["No", "Yes"], value="No", label='Drug Abuse'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Dyslipidemia'),
+    gr.Radio(choices=["No", "Yes"], value="No", label='Endocarditis'),
+    gr.Radio(choices=["No", "Yes"], value="No", label='Family History'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Fluid and Electrolyte Disorder'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Heart Failure'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Hypertension'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Known CAD'),
+    gr.Radio(choices=["No", "Yes"], value="No", label='Liver Disease'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Obesity'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Peripheral Vascular Disease'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Prior CABG'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Prior ICD'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Prior MI'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Prior PCI'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Prior PPM'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Prior TIA Stroke'),
+    gr.Radio(choices=["No", "Yes"], value="No", label='Pulmonary Circulation Disorder'),
+    gr.Radio(choices=["No", "Yes"], value="No", label='Smoker'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Valvular Disease'),
+    gr.Radio(choices=["No", "Yes"], value="No", label='Weight Loss'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Endovascular TAVR'),
+    gr.Radio(choices=["No", "Yes"], value="Yes", label='Transapical TAVR')
+]
+
+# The app's first few descriptive lines
+description_html = """
+<p style="font-size:16px; line-height:1.6;">
+This app predicts in-hospital mortality after TAVR using a finalized logistic regression model with L2 penalty, based on national inpatient data from 2012–2019 (HCUP NIS).<br>
+<br>
+Published paper: 
+<a href="https://www.nature.com/articles/s41598-023-37358-9.pdf" target="_blank">
+Alhwiti, T., Aldrugh, S., & Megahed, F. M. (2023), <i>Scientific Reports</i>
+</a>
+</p>
+"""
 
 # Defining and launching the interface
 iface = gr.Interface(
     fn = predict, 
-    inputs = [age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hosp_division, hosp_locteach,
-            hosp_bedsize, h_contrl, pay, anemia, atrial_fibrillation, 
-            cancer, cardiac_arrhythmias, carotid_artery_disease, 
-            chronic_kidney_disease, chronic_pulmonary_disease, coagulopathy,
-            depression, diabetes_mellitus, drug_abuse, dyslipidemia, endocarditis,
-            family_history, fluid_and_electrolyte_disorder, heart_failure,
-            hypertension, known_cad, liver_disease, obesity, peripheral_vascular_disease,
-            prior_cabg, prior_icd, prior_mi, prior_pci, prior_ppm, prior_tia_stroke,
-            pulmonary_circulation_disorder, smoker, valvular_disease, weight_loss,
-            endovascular_tavr, transapical_tavr], 
+    inputs = inputs, 
     outputs = 'text',
     live=True,
     title = "Predicting In-Hospital Mortality After TAVR Using Preoperative Variables and Penalized Logistic Regression",
-    description = """
-        <p style="font-size:16px; line-height:1.6;">
-        This app predicts in-hospital mortality after TAVR using a finalized logistic regression model with L2 penalty, based on national inpatient data from 2012–2019 (HCUP NIS).<br>
-        <br>
-        Published paper: 
-        <a href="https://www.nature.com/articles/s41598-023-37358-9.pdf" target="_blank">
-        Alhwiti, T., Aldrugh, S., & Megahed, F. M. (2023), <i>Scientific Reports</i>, 13(1), 10252.
-        </a>
-        </p>
-    """,
+    description = description_html,
     css = 'https://bootswatch.com/5/journal/bootstrap.css')
 
 iface.launch()
