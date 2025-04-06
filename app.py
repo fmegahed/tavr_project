@@ -83,7 +83,7 @@ def predict(age, female, race, elective, aweekend, zipinc_qrtl, hosp_region, hos
        'Predicting Death Outcome:': pred['Label'][0]}
 
 # Defining the containers for each input
-age = gr.Slider(minimum=18, maximum=100, default=60, label="Age")
+age = gr.Slider(minimum=18, maximum=100, value=60, label="Age")
 female = gr.Dropdown(choices=["Female", "Male"],label = 'Sex')
 race = gr.Dropdown(choices=['Asian or Pacific Islander', 'Black', 'Hispanic', 'Native American', 'White',  'Other'], label = 'Race')
 elective = gr.Radio(choices=['Elective', 'NonElective'], label = 'Elective')
@@ -127,7 +127,7 @@ smoker = gr.Radio(choices=["No", "Yes"], label = 'Smoker')
 valvular_disease = gr.Radio(choices=["No", "Yes"], label = 'Valvular Disease') 
 weight_loss = gr.Radio(choices=["No", "Yes"], label = 'Weight Loss')
 endovascular_tavr = gr.Radio(choices=["No", "Yes"], label = 'Endovascular TAVR')
-transapical_tavr = gr.Radio(choices=["No", "Yes"], label = 'Transapical TAVR', default= 'Yes')
+transapical_tavr = gr.Radio(choices=["No", "Yes"], label = 'Transapical TAVR', value= 'Yes')
 
 
 # Defining and launching the interface
