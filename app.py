@@ -147,15 +147,15 @@ iface = gr.Interface(
     live=True,
     title = "Predicting In-Hospital Mortality After TAVR Using Preoperative Variables and Penalized Logistic Regression",
     description = """
-    <p style="font-size:16px; line-height:1.6;">
-    This app predicts in-hospital mortality after TAVR using a finalized logistic regression model with L2 penalty, based on national inpatient data from 2012–2019 (HCUP NIS).<br>
-    <br>
-    Published paper: 
-    <a href="https://www.nature.com/articles/s41598-023-37358-9.pdf" target="_blank">
-    Alhwiti, T., Aldrugh, S., & Megahed, F. M. (2023), <i>Scientific Reports</i>, 13(1), 10252.
-    </a>
-    </p>
-    """
+        <p style="font-size:16px; line-height:1.6;">
+        This app predicts in-hospital mortality after TAVR using a finalized logistic regression model with L2 penalty, based on national inpatient data from 2012–2019 (HCUP NIS).<br>
+        <br>
+        Published paper: 
+        <a href="https://www.nature.com/articles/s41598-023-37358-9.pdf" target="_blank">
+        Alhwiti, T., Aldrugh, S., & Megahed, F. M. (2023), <i>Scientific Reports</i>, 13(1), 10252.
+        </a>
+        </p>
+    """,
     css = 'https://bootswatch.com/5/journal/bootstrap.css')
 
 iface.launch()
