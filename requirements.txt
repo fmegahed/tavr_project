@@ -1,3 +1,2 @@
 scikit-learn<=1.1.2
-pyLDAvis
-pycaret==2.3.10
+pycaret[models]==2.3.10
