@@ -1,5 +1,13 @@
-pandas==1.4.1
 numpy==1.21.5
-pycaret==2.3.6
+pandas==1.4.1
+scipy==1.5.4
 scikit-learn==1.0.2
+imbalanced-learn==0.7.0
+joblib==1.0.1
+
+pycaret[full]==2.3.6
 gradio==2.8.5
+
+catboost==1.0.4
+xgboost==1.5.2
+lightgbm==3.3.2
