@@ -1,5 +1,5 @@
 pycaret==2.3.6
-gradio==2.8.5
+gradio==3.50.2
 
 numba==0.55.1
 numpy==1.21.5
