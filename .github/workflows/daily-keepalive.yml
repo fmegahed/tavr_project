@@ -1,0 +1,44 @@
+name: Daily Keep-Alive
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Update keep_alive.csv
+        run: |
+          python3 -c "
+          import datetime, csv
+          now = datetime.datetime.utcnow()
+          epoch = datetime.date(2022, 5, 26)
+          days = (now.date() - epoch).days
+          with open('keep_alive.csv', 'w', newline='') as f:
+              w = csv.writer(f)
+              w.writerow(['date', 'days_since_first_run', 'last_updated_utc'])
+              w.writerow([now.strftime('%Y-%m-%d'), days, now.strftime('%Y-%m-%dT%H:%M:%SZ')])
+          "
+
+      - name: Commit and push
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add keep_alive.csv
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "chore: daily keep-alive $(date -u +%Y-%m-%d)"
+          git push origin main
+          git push https://fmegahed:$HF_TOKEN@huggingface.co/spaces/fmegahed/tavr_project main
